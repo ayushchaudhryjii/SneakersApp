@@ -108,6 +108,12 @@ export default {
     width: RFValue(30),
     alignSelf: "flex-start",
   },
+  modal_back_img2: {
+    height: RFValue(25),
+    width: RFValue(25),
+    alignSelf: "flex-start",
+    color:Color.TEXT_COLOR_PRODUCT,
+  },
   modalText: {
     fontSize: RFValue(18),
     fontWeight: "500",
@@ -194,6 +200,13 @@ profile_img:{
   width: RFValue(90),
   borderRadius: RFValue(50),
   borderColor: Color.WHITE_COLOR,
+  borderWidth: RFValue(2),
+},
+profile_img1:{
+  height: RFValue(90),
+  width: RFValue(90),
+  borderRadius: RFValue(50),
+  borderColor: Color.BLACK_COLOR,
   borderWidth: RFValue(2),
 },
 upload_btn:{
