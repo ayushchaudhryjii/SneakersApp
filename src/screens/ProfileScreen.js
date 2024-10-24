@@ -30,7 +30,7 @@ const ProfileScreen = () => {
           <View>
             <Text
               style={{
-                fontSize: RFValue(14),
+                fontSize: RFValue(13),
                 fontWeight: "500",
                 color: Color.TEXT_COLOR_PRODUCT,
               }}
@@ -52,7 +52,7 @@ const ProfileScreen = () => {
           style={{
             backgroundColor: Color.LIGHT_GREY,
             height: RFValue(110),
-            width: RFValue(150),
+            width: RFValue(140),
             justifyContent: "center",
             gap: RFValue(10),
           }}
@@ -78,7 +78,7 @@ const ProfileScreen = () => {
           style={{
             backgroundColor: Color.LIGHT_GREY,
             height: RFValue(110),
-            width: RFValue(150),
+            width: RFValue(140),
             justifyContent: "center",
             gap: RFValue(10),
           }}
