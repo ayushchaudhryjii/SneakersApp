@@ -17,6 +17,8 @@ import Loader from "../components/Loader";
 import Style from "../common/Style";
 import StaticContent from "../common/StaticContent";
 import { fetchBrandsRequest } from "../redux/actions/brandAction";
+import { fetchSizeRequest } from "../redux/actions/sizeAction";
+import { fetchYearRequest } from "../redux/actions/yearAction";
 
 const HomeScreen = ({ navigation }) => {
   const [filterModal, setFilterModal] = useState(false);
@@ -33,10 +35,21 @@ const HomeScreen = ({ navigation }) => {
   const brand = useSelector((state) => state.brand || []);
   console.log("brand", brand.brand);
 
+  const size = useSelector((state) => state.size || []);
+  console.log("sizee", size.size);
+
+  const year = useSelector((state) => state.year || []);
+  console.log("yearr", year.year);
+
   useEffect(() => {
     dispatch(fetchProductsRequest());
     const brands = dispatch(fetchBrandsRequest());
+    const sizes = dispatch(fetchSizeRequest());
+    const years = dispatch(fetchYearRequest());
+    console.log(years, "yearsss");
+
     console.log(brands, "brands");
+    console.log(sizes, "sizess");
   }, [dispatch]);
 
   if (loading) {
@@ -225,14 +238,14 @@ const HomeScreen = ({ navigation }) => {
 
       <Modal transparent={true} visible={listModal}>
         <View style={Style.modalView}>
-          <TouchableOpacity onPress={() => setListModal(!listModal)}>
+          <TouchableOpacity onPress={() => [setFilterModal(true), setListModal(false)]}>
             <Image
               style={Style.modal_back_img}
               resizeMode="contain"
               source={require("../images/back.png")}
             />
           </TouchableOpacity>
-          <Text style={Style.modalText}>Fliter</Text>
+          <Text style={Style.modalText}>Brand</Text>
 
           {brand.brand.data ? (
             <FlatList

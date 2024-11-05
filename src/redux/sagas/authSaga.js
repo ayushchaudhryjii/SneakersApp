@@ -5,6 +5,8 @@ import BASE_URL, {
   SEND_OTP,
   VERIFY_OTP,
   BRAND_LIST,
+  SIZE_LIST,
+  YEAR_LIST
 } from "../../utils/EndPoint"; // Import the endpoints
 import {
   SEND_OTP_REQUEST,
@@ -17,12 +19,16 @@ import {
   FETCH_PRODUCTS_SUCCESS,
   FETCH_PRODUCTS_REQUEST,
   FETCH_BRAND_REQUEST,
+  FETCH_SIZE_REQUEST,
+  FETCH_YEAR_REQUEST,
 } from "../ActionType";
 import {
   fetchProductsSuccess,
   fetchProductsFailure,
 } from "../actions/authAction";
 import { fetchBrandsFailure, fetchBrandsSuccess } from "../actions/brandAction";
+import { fetchSizeFailure, fetchSizeSuccess } from "../actions/sizeAction";
+import { fetchYearFailure, fetchYearSuccess } from "../actions/yearAction";
 
 function* sendOtpSaga(action) {
   console.log("action", action);
@@ -75,10 +81,32 @@ function* fetchBrandSaga() {
     yield put(fetchBrandsFailure(error.message));
   }
 }
+function* fetchSizeSaga() {
+  try {
+    const response = yield call(axios.get, BASE_URL + SIZE_LIST);
+    console.log("BRand API Response:", response.data);
+    yield put(fetchSizeSuccess(response.data));
+  } catch (error) {
+    console.error("Error in fetchProductsSaga:", error.message);
+    yield put(fetchSizeFailure(error.message));
+  }
+}
+function* fetchYearSaga() {
+  try {
+    const response = yield call(axios.get, BASE_URL + YEAR_LIST);
+    console.log("BRand API Response:", response.data);
+    yield put(fetchYearSuccess(response.data));
+  } catch (error) {
+    console.error("Error in fetchProductsSaga:", error.message);
+    yield put(fetchYearFailure(error.message));
+  }
+}
 
 export default function* authSaga() {
   yield takeLatest(SEND_OTP_REQUEST, sendOtpSaga);
   yield takeLatest(VERIFY_OTP_REQUEST, verifyOtpSaga);
   yield takeLatest(FETCH_PRODUCTS_REQUEST, fetchProductsSaga);
   yield takeLatest(FETCH_BRAND_REQUEST, fetchBrandSaga);
+  yield takeLatest(FETCH_SIZE_REQUEST, fetchSizeSaga);
+  yield takeLatest(FETCH_YEAR_REQUEST, fetchYearSaga);
 }
