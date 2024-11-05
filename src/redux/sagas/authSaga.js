@@ -4,6 +4,7 @@ import BASE_URL, {
   PRODUCTS_LIST,
   SEND_OTP,
   VERIFY_OTP,
+  BRAND_LIST,
 } from "../../utils/EndPoint"; // Import the endpoints
 import {
   SEND_OTP_REQUEST,
@@ -15,11 +16,13 @@ import {
   PROFILE_CREATION_FAILURE,
   FETCH_PRODUCTS_SUCCESS,
   FETCH_PRODUCTS_REQUEST,
+  FETCH_BRAND_REQUEST,
 } from "../ActionType";
 import {
   fetchProductsSuccess,
   fetchProductsFailure,
 } from "../actions/authAction";
+import { fetchBrandsFailure, fetchBrandsSuccess } from "../actions/brandAction";
 
 function* sendOtpSaga(action) {
   console.log("action", action);
@@ -62,9 +65,20 @@ function* fetchProductsSaga() {
     yield put(fetchProductsFailure(error.message));
   }
 }
+function* fetchBrandSaga() {
+  try {
+    const response = yield call(axios.get, BASE_URL + BRAND_LIST);
+    console.log("BRand API Response:", response.data);
+    yield put(fetchBrandsSuccess(response.data));
+  } catch (error) {
+    console.error("Error in fetchProductsSaga:", error.message);
+    yield put(fetchBrandsFailure(error.message));
+  }
+}
 
 export default function* authSaga() {
   yield takeLatest(SEND_OTP_REQUEST, sendOtpSaga);
   yield takeLatest(VERIFY_OTP_REQUEST, verifyOtpSaga);
   yield takeLatest(FETCH_PRODUCTS_REQUEST, fetchProductsSaga);
+  yield takeLatest(FETCH_BRAND_REQUEST, fetchBrandSaga);
 }

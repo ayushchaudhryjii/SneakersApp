@@ -26,6 +26,7 @@ const SplashScreen = ({navigation}) => {
     </SafeAreaView>
   )
   
+    
 }
 
 export default SplashScreen
