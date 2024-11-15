@@ -1,12 +1,52 @@
-import { ScrollView, StyleSheet, Text, View , TouchableOpacity,Image } from "react-native";
+import { ScrollView, Text, View, TouchableOpacity, Image , StyleSheet } from "react-native";
 import React from "react";
 import Style from "../common/Style";
 import { RFValue } from "react-native-responsive-fontsize";
 import Color from "../common/Color";
+import { usePortfolio } from './PortfolioContext';
 
-const ProductDetailScreen = ({ route , navigation }) => {
-  let detailData = route.params?.pass;
-  console.log("detailData", detailData.attributes.name);
+
+const ProductDetailScreen = ({ route, navigation }) => {
+  const { addItemToPortfolio } = usePortfolio(); // Access addItemToPortfolio from context
+  const detailData = route.params?.pass;
+
+  const handleBuyNow = () => {
+    if (addItemToPortfolio) {
+      addItemToPortfolio(detailData); // Add item to the portfolio
+      navigation.navigate("PortfolioScreen"); // Navigate to PortfolioScreen
+    } else {
+      console.error("addItemToPortfolio is undefined");
+    }
+  };
+
+
+
+
+// import { ScrollView, StyleSheet, Text, View , TouchableOpacity,Image } from "react-native";
+// import React from "react";
+// import Style from "../common/Style";
+// import { RFValue } from "react-native-responsive-fontsize";
+// import Color from "../common/Color";
+// import { usePortfolio } from '../path/to/PortfolioContext';
+
+
+// const ProductDetailScreen = ({ route, navigation }) => {
+//   const { addItemToPortfolio } = usePortfolio();
+//   let detailData = route.params?.pass;
+
+//   const handleBuyNow = () => {
+//     addItemToPortfolio(detailData); // Add the item to the portfolio
+//     navigation.navigate("PortfolioScreen"); // Navigate to PortfolioScreen
+//   };
+
+// const ProductDetailScreen = ({ route , navigation }) => {
+//   let detailData = route.params?.pass;
+//   console.log("detailData", detailData.attributes.name);
+
+//   const handleBuyNow = () => {
+//     addItemToPortfolio(detailData); // Add the item to the portfolio
+//     navigation.navigate("PortfolioScreen"); // Navigate to PortfolioScreen
+//   };
   return (
     <ScrollView style={{backgroundColor:Color.WHITE_COLOR}}>
       <View style={{flex:1,flexDirection:"row",justifyContent:"space-between",margin:RFValue(15)}}>
@@ -128,6 +168,12 @@ const ProductDetailScreen = ({ route , navigation }) => {
           <Text style={{fontSize:RFValue(16), fontWeight:"400" , color:Color.BLACK_COLOR}}>{detailData.attributes.description}</Text>
 
         </View>
+      </View>
+
+      <View>
+        <TouchableOpacity onPress={handleBuyNow}>
+          <Text>Buy Now</Text>
+        </TouchableOpacity>
       </View>
 
      
